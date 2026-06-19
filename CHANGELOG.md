@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.00] - 2026-06-19
+
+### Added
+
+- `prepare-git-commit` skill — stages related changes and writes `.git/COMMIT_EDITMSG` without running `git commit` or push
+- `docs/skill-anatomy.md` — authoring guide for skill structure and conventions
+
+### Changed
+
+- `prepare-git-commit` — restructured `SKILL.md` to follow `docs/skill-anatomy.md` (Overview, When to Use, Inputs, Outputs, Constraints, Steps, Rationalization Traps, Red Flags, Verification); added `version`, `tags`, and `tools` frontmatter
+- `local-md-mermaid-pdf` — restructured `SKILL.md` to follow `docs/skill-anatomy.md`; added `version`, `tags`, and `tools` frontmatter (`puppeteer`, not Playwright); clarified that all intermediate artifacts must live in `local-md-mermaid-pdf-sandbox` (only the final PDF is written outside)
+- `docs/skill-anatomy.md` — optional frontmatter example aligned with `local-md-mermaid-pdf` dependencies (`mmdc`, `md-to-pdf`, `puppeteer`)
+- `README.md` — skill table, install example, and reference links updated for both skills
+
 ## [0.1.0] - 2026-06-18
 
 ### Added
@@ -16,5 +30,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Repository layout compatible with [skills.sh](https://skills.sh/) (`skills/<name>/SKILL.md`)
 - E2E validation script for `local-md-mermaid-pdf`
 
-[Unreleased]: https://github.com/wanderlima/agent-skills/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/wanderlima/agent-skills/compare/v0.2.00...HEAD
+[0.2.00]: https://github.com/wanderlima/agent-skills/compare/v0.1.0...v0.2.00
 [0.1.0]: https://github.com/wanderlima/agent-skills/releases/tag/v0.1.0

@@ -18,6 +18,7 @@ npx skills add wanderlima/agent-skills
 Install a specific skill:
 
 ```bash
+npx skills add wanderlima/agent-skills@prepare-git-commit
 npx skills add wanderlima/agent-skills@local-md-mermaid-pdf
 ```
 
@@ -53,15 +54,20 @@ Or clone the repo and point Claude Code at the `skills/` directory.
 
 | Skill | Description |
 |-------|-------------|
-| [local-md-mermaid-pdf](skills/local-md-mermaid-pdf/) | Converts Markdown with Mermaid charts to PDF using local tools |
+| [prepare-git-commit](skills/prepare-git-commit/) | Workflow-only skill: stages related changes, writes `.git/COMMIT_EDITMSG`, and hands off to the user for local `git commit` (hooks run on their machine) |
+| [local-md-mermaid-pdf](skills/local-md-mermaid-pdf/) | Tool-dependent skill: converts Markdown with Mermaid charts to PDF using local tools (`mmdc`, `md-to-pdf`) |
 
 ## Repository structure
 
-Each skill lives in its own folder under `skills/` with a `SKILL.md` file:
+Each skill lives in its own folder under `skills/` with a `SKILL.md` file. See [docs/skill-anatomy.md](docs/skill-anatomy.md) for the full authoring guide — [`prepare-git-commit`](skills/prepare-git-commit/SKILL.md) is the reference workflow-only skill; [`local-md-mermaid-pdf`](skills/local-md-mermaid-pdf/SKILL.md) is the reference tool-dependent skill.
 
 ```
 agent-skills/
+├── docs/
+│   └── skill-anatomy.md
 ├── skills/
+│   ├── prepare-git-commit/
+│   │   └── SKILL.md
 │   └── local-md-mermaid-pdf/
 │       ├── SKILL.md
 │       ├── style.css
