@@ -20,6 +20,7 @@ Install a specific skill:
 ```bash
 npx skills add wanderlima/agent-skills@prepare-git-commit
 npx skills add wanderlima/agent-skills@local-md-mermaid-pdf
+npx skills add wanderlima/agent-skills@session-handoff
 ```
 
 Install all skills globally:
@@ -56,10 +57,11 @@ Or clone the repo and point Claude Code at the `skills/` directory.
 |-------|-------------|
 | [prepare-git-commit](skills/prepare-git-commit/) | Workflow-only skill: stages related changes, writes `.git/COMMIT_EDITMSG`, and hands off to the user for local `git commit` (hooks run on their machine) |
 | [local-md-mermaid-pdf](skills/local-md-mermaid-pdf/) | Tool-dependent skill: converts Markdown with Mermaid charts to PDF using local tools (`mmdc`, `md-to-pdf`) |
+| [session-handoff](skills/session-handoff/) | Workflow skill: creates a safe en-US handoff markdown file from the current session and saves it under the active workspace `handoffs/` folder |
 
 ## Repository structure
 
-Each skill lives in its own folder under `skills/` with a `SKILL.md` file. See [docs/skill-anatomy.md](docs/skill-anatomy.md) for the full authoring guide — [`prepare-git-commit`](skills/prepare-git-commit/SKILL.md) is the reference workflow-only skill; [`local-md-mermaid-pdf`](skills/local-md-mermaid-pdf/SKILL.md) is the reference tool-dependent skill.
+Each skill lives in its own folder under `skills/` with a `SKILL.md` file. See [docs/skill-anatomy.md](docs/skill-anatomy.md) for the full authoring guide — [`prepare-git-commit`](skills/prepare-git-commit/SKILL.md) and [`session-handoff`](skills/session-handoff/SKILL.md) are reference workflow-only skills; [`local-md-mermaid-pdf`](skills/local-md-mermaid-pdf/SKILL.md) is the reference tool-dependent skill.
 
 ```
 agent-skills/
@@ -68,10 +70,13 @@ agent-skills/
 ├── skills/
 │   ├── prepare-git-commit/
 │   │   └── SKILL.md
-│   └── local-md-mermaid-pdf/
-│       ├── SKILL.md
-│       ├── style.css
-│       └── scripts/
+│   ├── local-md-mermaid-pdf/
+│   │   ├── SKILL.md
+│   │   ├── style.css
+│   │   └── scripts/
+│   └── session-handoff/
+│       ├── README.md
+│       └── SKILL.md
 ├── CHANGELOG.md
 ├── LICENSE
 └── README.md

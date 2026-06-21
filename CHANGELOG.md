@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-06-21
+
+### Added
+
+- `session-handoff` skill — creates a safe en-US handoff markdown file from the current session and saves it under the active workspace `handoffs/` folder
+
+### Changed
+
+- `README.md` — skill table, install example, repository structure tree, and reference links updated for `session-handoff`
+
 ## [0.2.00] - 2026-06-19
 
 ### Added
@@ -30,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Repository layout compatible with [skills.sh](https://skills.sh/) (`skills/<name>/SKILL.md`)
 - E2E validation script for `local-md-mermaid-pdf`
 
-[Unreleased]: https://github.com/wanderlima/agent-skills/compare/v0.2.00...HEAD
+[Unreleased]: https://github.com/wanderlima/agent-skills/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/wanderlima/agent-skills/compare/v0.2.00...v0.3.0
 [0.2.00]: https://github.com/wanderlima/agent-skills/compare/v0.1.0...v0.2.00
 [0.1.0]: https://github.com/wanderlima/agent-skills/releases/tag/v0.1.0
