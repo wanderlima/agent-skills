@@ -5,7 +5,7 @@
 
 A collection of open-source agent skills installable via [skills.sh](https://skills.sh/).
 
-Works with [OpenClaw](https://openclaw.ai/) and [Claude](https://claude.ai/) (Claude Code, Claude Desktop, and other agents that load `SKILL.md` files).
+Works with [Cursor](https://cursor.com/), [VS Code](https://code.visualstudio.com/) (via AI extensions such as Claude Code and GitHub Copilot), [OpenClaw](https://openclaw.ai/), and [Claude](https://claude.ai/) (Claude Code, Claude Desktop, and other agents that load `SKILL.md` files).
 
 ## Install
 
@@ -35,13 +35,41 @@ List available skills without installing:
 npx skills add wanderlima/agent-skills -l
 ```
 
+### Cursor
+
+Install via [skills.sh](https://skills.sh/) — skills land in `.agents/skills/` (project) or `~/.cursor/skills/` (global):
+
+```bash
+npx skills add wanderlima/agent-skills -a cursor -g
+```
+
+The CLI auto-detects Cursor when present. Installed skills are picked up automatically in Cursor chat.
+
+### VS Code
+
+VS Code uses whichever AI extension you have installed. Target that agent with `-a`:
+
+**Claude Code** (VS Code extension):
+
+```bash
+npx skills add wanderlima/agent-skills -a claude-code -g
+```
+
+**GitHub Copilot**:
+
+```bash
+npx skills add wanderlima/agent-skills -a copilot -g
+```
+
+Without `-a`, the CLI tries to detect installed agents and may install to more than one. You can also browse and install from the editor using a [Skills.sh marketplace extension](https://marketplace.visualstudio.com/items?itemName=AbelMak.skills-sh) (works in VS Code, Cursor, and other VSIX-compatible editors).
+
 ### OpenClaw
 
 Add the repository as a skill source in OpenClaw, or install individual skills from this repo. Skills with bundled dependencies (e.g. `local-md-mermaid-pdf`) include OpenClaw install metadata for required binaries.
 
 ### Claude
 
-**Claude Code** — install via skills.sh:
+**Claude Code** (CLI or VS Code extension) — install via skills.sh:
 
 ```bash
 npx skills add wanderlima/agent-skills -a claude-code -g
