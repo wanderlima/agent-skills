@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-06-22
+
+### Changed
+
+- `local-md-mermaid-pdf` (v1.1.0) — multiple Markdown sources now produce one PDF per file (`<basename>-export.pdf` beside each source); conversions run sequentially (queue), not in parallel; PDF merge only when the user explicitly requests it
+- `local-md-mermaid-pdf` (v1.1.1) — require `puppeteer-config.json` with system Chrome **before** the first `mmdc` run (empty sandbox cache otherwise breaks Mermaid rendering); e2e validates that `input.tmp.md` has no raw ` ```mermaid ` blocks
+
 ## [0.3.0] - 2026-06-21
 
 ### Added
@@ -40,7 +47,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Repository layout compatible with [skills.sh](https://skills.sh/) (`skills/<name>/SKILL.md`)
 - E2E validation script for `local-md-mermaid-pdf`
 
-[Unreleased]: https://github.com/wanderlima/agent-skills/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/wanderlima/agent-skills/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/wanderlima/agent-skills/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/wanderlima/agent-skills/compare/v0.2.00...v0.3.0
 [0.2.00]: https://github.com/wanderlima/agent-skills/compare/v0.1.0...v0.2.00
 [0.1.0]: https://github.com/wanderlima/agent-skills/releases/tag/v0.1.0

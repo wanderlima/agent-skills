@@ -234,23 +234,23 @@ cp "${WORKDIR}/input.md" "${SANDBOX}/input.md"
 
 log "Step 1/3: render Mermaid"
 puppeteer_config=""
-if [[ "$FORCE_NPX" == true ]]; then
-  chrome="$(resolve_chrome)" || fail "npx mode requires Google Chrome or Chromium (set PUPPETEER_EXECUTABLE_PATH)"
-  log "npx mode: using system Chrome for mmdc: ${chrome}"
+chrome="$(resolve_chrome 2>/dev/null || true)"
+if [[ -n "$chrome" ]]; then
+  log "Using system Chrome for mmdc: ${chrome}"
   printf '{"executablePath":"%s","args":["--no-sandbox"]}\n' "$chrome" > "${SANDBOX}/puppeteer-config.json"
   puppeteer_config="${SANDBOX}/puppeteer-config.json"
 fi
 
 if [[ -n "$puppeteer_config" ]]; then
   run_mmdc "${SANDBOX}/input.md" "${SANDBOX}/input.tmp.md" "$puppeteer_config"
-elif ! run_mmdc "${SANDBOX}/input.md" "${SANDBOX}/input.tmp.md"; then
-  chrome="$(resolve_chrome)" || fail "mmdc failed and no Chrome/Chromium executable was found"
-  log "Retrying mmdc with executablePath: ${chrome}"
-  printf '{"executablePath":"%s","args":["--no-sandbox"]}\n' "$chrome" > "${SANDBOX}/puppeteer-config.json"
-  run_mmdc "${SANDBOX}/input.md" "${SANDBOX}/input.tmp.md" "${SANDBOX}/puppeteer-config.json"
+else
+  run_mmdc "${SANDBOX}/input.md" "${SANDBOX}/input.tmp.md" || fail "mmdc failed and no Chrome/Chromium executable was found"
 fi
 
 [[ -f "${SANDBOX}/input.tmp.md" ]] || fail "mmdc did not produce input.tmp.md"
+if grep -q '```mermaid' "${SANDBOX}/input.tmp.md"; then
+  fail "input.tmp.md still contains raw mermaid blocks — mmdc did not render diagrams"
+fi
 log "Mermaid rendered: ${SANDBOX}/input.tmp.md"
 
 log "Step 2/3: prepare PDF input"
