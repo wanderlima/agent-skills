@@ -5,7 +5,7 @@ description: >-
   without running git commit or push (hooks run when the user commits). Use when
   the user asks to prepare a commit, stage files, write a commit message, or
   commit changes without pushing.
-version: 1.0.0
+version: 1.1.0
 tags:
   - git
   - commit
@@ -40,6 +40,7 @@ Stages files for one logical change and writes a commit message to `.git/COMMIT_
 - Files already staged or changed on the branch
 - Recent commit message style (`git log`)
 - User scope when they name specific paths or changes
+- Task/ticket ID when work is tied to a card (Trello, Jira, Linear, GitHub Issues, etc.)
 
 ## Outputs
 
@@ -84,6 +85,14 @@ Run in parallel when possible:
 - Write to **`.git/COMMIT_EDITMSG`**
 - Format: short title line + bullet list (intent/why, not noisy implementation detail)
 - **Prefix** — prefer prefix from branch name (e.g. `feat/`, `fix/`, `chore/`); otherwise use `feat:`, `fix:`, `bugfix:`, `chore:`, `refactor:`
+- **Task / ticket ID** — when the work is tied to a card or ticket (Trello, Jira, Linear, GitHub Issues, Asana, etc.), always include the task ID in the commit title prefix:
+  - Format: `{type}/{ID}: {title}`
+  - Examples:
+    - `fix/PROJ-123: Handle null response from checkout API`
+    - `feat/TRELLO-456: Add export CSV action to reports`
+    - `chore/ABC-789: Bump eslint and align config`
+  - Resolve the ID from (in order): user mention → branch name (`feat/PROJ-123-...`, `fix/456-...`) → PR/issue link → card URL
+  - If no task ID is available, keep the normal prefix without inventing one
 
 ### 4. Hand off
 
@@ -110,5 +119,6 @@ Report staged files, the full commit message (copy-ready), and instruct the user
 - [ ] `git diff --cached` reviewed for scope and secrets
 - [ ] Only related files are staged (`git diff --cached --name-only`)
 - [ ] `.git/COMMIT_EDITMSG` exists with title, prefix, and bullet list
+- [ ] Task/ticket ID included in the title prefix when work is linked to a tracked card
 - [ ] No prohibited attribution in the message
 - [ ] User received staged file list, full message, and local commit command

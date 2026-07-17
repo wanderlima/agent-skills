@@ -21,6 +21,7 @@ Install a specific skill:
 npx skills add wanderlima/agent-skills@prepare-git-commit
 npx skills add wanderlima/agent-skills@local-md-mermaid-pdf
 npx skills add wanderlima/agent-skills@session-handoff
+npx skills add wanderlima/agent-skills@list-session-files
 ```
 
 Install all skills globally:
@@ -86,6 +87,7 @@ Or clone the repo and point Claude Code at the `skills/` directory.
 | [prepare-git-commit](skills/prepare-git-commit/) | Workflow-only skill: stages related changes, writes `.git/COMMIT_EDITMSG`, and hands off to the user for local `git commit` (hooks run on their machine) |
 | [local-md-mermaid-pdf](skills/local-md-mermaid-pdf/) | Tool-dependent skill: converts Markdown with Mermaid charts to PDF using local tools (`mmdc`, `md-to-pdf`) |
 | [session-handoff](skills/session-handoff/) | Workflow skill: creates a safe en-US handoff markdown file from the current session and saves it under the active workspace `handoffs/` folder |
+| [list-session-files](skills/list-session-files/) | Workflow skill: tracks session file changes and appends paths when the agent creates or modifies files; lists full inventory on request |
 
 ## Repository structure
 
@@ -98,13 +100,9 @@ agent-skills/
 ├── skills/
 │   ├── prepare-git-commit/
 │   │   └── SKILL.md
-│   ├── local-md-mermaid-pdf/
-│   │   ├── SKILL.md
-│   │   ├── style.css
-│   │   └── scripts/
-│   └── session-handoff/
-│       ├── README.md
-│       └── SKILL.md
+│   ├── session-handoff/
+│   │   └── SKILL.md
+│   └── ...
 ├── CHANGELOG.md
 ├── LICENSE
 └── README.md

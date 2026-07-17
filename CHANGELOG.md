@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `list-session-files` skill — tracks session file changes, appends absolute full system paths when the agent creates or modifies files, and lists full inventory on request (no git dependency)
+
+### Changed
+
+- `prepare-git-commit` (v1.1.0) — when work is tied to a Trello/Jira/Linear/etc. card, require task ID in the commit title prefix (`{type}/{ID}: {title}`)
+- `README.md` — skill table, install example, and repository structure tree updated for `list-session-files`
+
 ## [0.4.0] - 2026-06-22
 
 ### Changed
