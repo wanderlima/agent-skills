@@ -18,10 +18,10 @@ npx skills add wanderlima/agent-skills
 Install a specific skill:
 
 ```bash
-npx skills add wanderlima/agent-skills@prepare-git-commit
-npx skills add wanderlima/agent-skills@local-md-mermaid-pdf
-npx skills add wanderlima/agent-skills@session-handoff
-npx skills add wanderlima/agent-skills@list-session-files
+npx skills add wanderlima/agent-skills --skill prepare-git-commit
+npx skills add wanderlima/agent-skills --skill local-md-mermaid-pdf
+npx skills add wanderlima/agent-skills --skill session-handoff
+npx skills add wanderlima/agent-skills --skill list-session-files
 ```
 
 Install all skills globally:
@@ -82,38 +82,72 @@ Or clone the repo and point Claude Code at the `skills/` directory.
 
 ## Skills
 
-| Skill | Description |
-|-------|-------------|
-| [prepare-git-commit](skills/prepare-git-commit/) | Workflow-only skill: stages related changes, writes `.git/COMMIT_EDITMSG`, and hands off to the user for local `git commit` (hooks run on their machine) |
-| [local-md-mermaid-pdf](skills/local-md-mermaid-pdf/) | Tool-dependent skill: converts Markdown with Mermaid charts to PDF using local tools (`mmdc`, `md-to-pdf`) |
-| [session-handoff](skills/session-handoff/) | Workflow skill: creates a safe en-US handoff markdown file from the current session and saves it under the active workspace `handoffs/` folder |
-| [list-session-files](skills/list-session-files/) | Workflow skill: tracks session file changes and appends paths when the agent creates or modifies files; lists full inventory on request |
+Skills are organized by category for easier discovery and maintenance.
+
+### Session Management
+
+| Skill | Description | Install |
+|-------|-------------|---------|
+| [list-session-files](skills/session/list-session-files/) | Tracks session file changes and appends paths when the agent creates or modifies files; lists full inventory on request | `npx skills add wanderlima/agent-skills --skill list-session-files` |
+| [session-handoff](skills/session/session-handoff/) | Creates a safe en-US handoff markdown file from the current session and saves it under the active workspace `handoffs/` folder | `npx skills add wanderlima/agent-skills --skill session-handoff` |
+
+### Git & Version Control
+
+| Skill | Description | Install |
+|-------|-------------|---------|
+| [prepare-git-commit](skills/git/prepare-git-commit/) | Stages related changes, writes `.git/COMMIT_EDITMSG`, and hands off to the user for local `git commit` (hooks run on their machine) | `npx skills add wanderlima/agent-skills --skill prepare-git-commit` |
+
+### Documentation & Export
+
+| Skill | Description | Install |
+|-------|-------------|---------|
+| [local-md-mermaid-pdf](skills/docs/local-md-mermaid-pdf/) | Converts Markdown with Mermaid charts to PDF using local tools (`mmdc`, `md-to-pdf`) | `npx skills add wanderlima/agent-skills --skill local-md-mermaid-pdf` |
 
 ## Repository structure
 
-Each skill lives in its own folder under `skills/` with a `SKILL.md` file. See [docs/skill-anatomy.md](docs/skill-anatomy.md) for the full authoring guide — [`prepare-git-commit`](skills/prepare-git-commit/SKILL.md) and [`session-handoff`](skills/session-handoff/SKILL.md) are reference workflow-only skills; [`local-md-mermaid-pdf`](skills/local-md-mermaid-pdf/SKILL.md) is the reference tool-dependent skill.
+Skills are organized into categories, with each skill in its own folder containing a `SKILL.md` file. The [skills.sh](https://skills.sh/) CLI discovers skills up to 3 levels deep, supporting both `skills/<category>/<skill>/SKILL.md` and `skills/<category>/<subcategory>/<skill>/SKILL.md` layouts.
+
+See [docs/skill-anatomy.md](docs/skill-anatomy.md) for the full authoring guide — [`prepare-git-commit`](skills/git/prepare-git-commit/SKILL.md) and [`session-handoff`](skills/session/session-handoff/SKILL.md) are reference workflow-only skills; [`local-md-mermaid-pdf`](skills/docs/local-md-mermaid-pdf/SKILL.md) is the reference tool-dependent skill.
 
 ```
 agent-skills/
 ├── docs/
 │   └── skill-anatomy.md
 ├── skills/
-│   ├── prepare-git-commit/
-│   │   └── SKILL.md
-│   ├── session-handoff/
-│   │   └── SKILL.md
-│   └── ...
+│   ├── session/              # Session management
+│   │   ├── list-session-files/
+│   │   │   └── SKILL.md
+│   │   └── session-handoff/
+│   │       └── SKILL.md
+│   ├── git/                  # Git & version control
+│   │   └── prepare-git-commit/
+│   │       └── SKILL.md
+│   └── docs/                 # Documentation & export
+│       └── local-md-mermaid-pdf/
+│           └── SKILL.md
 ├── CHANGELOG.md
 ├── LICENSE
 └── README.md
 ```
+
+### Adding new skills
+
+When adding new skills:
+
+1. Choose the appropriate category folder (or create a new one with a clear, descriptive name)
+2. Create a subfolder using lowercase kebab-case for the skill name
+3. Ensure the `name` field in the skill's YAML frontmatter matches the folder name
+4. Place `SKILL.md` and any supporting files in the skill folder
+5. Skills will be discovered automatically by the CLI (no category-level `SKILL.md` files)
+
+**Planned categories:** `mobile-expo/` for React Native and Expo-specific skills will be added in a future release.
 
 ## Development
 
 From a skill folder:
 
 ```bash
-cd skills/local-md-mermaid-pdf
+cd skills/docs/local-md-mermaid-pdf
 ./scripts/e2e.sh --diagnose   # environment check
 ./scripts/e2e.sh              # full pipeline
 ```

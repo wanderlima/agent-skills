@@ -14,30 +14,49 @@ If removing a section would not change how an agent behaves, remove it.
 
 ## Skills location
 
-Every skill lives in its own directory under `skills/`:
+Skills are organized into categories for easier discovery and maintenance. Every skill lives in its own directory under `skills/<category>/`:
 
 ```text
 agent-skills/
 ├── skills/
-│   └── skill-name/
-│       ├── SKILL.md               # Required: runtime contract
-│       ├── README.md              # Optional: maintainer-only documentation
-│       ├── style.css              # Optional: workflow assets
-│       ├── scripts/               # Optional: runnable helpers
-│       └── tests/                 # Optional: local validation fixtures
+│   └── category-name/
+│       └── skill-name/
+│           ├── SKILL.md               # Required: runtime contract
+│           ├── README.md              # Optional: maintainer-only documentation
+│           ├── style.css              # Optional: workflow assets
+│           ├── scripts/               # Optional: runnable helpers
+│           └── tests/                 # Optional: local validation fixtures
 ```
 
 `SKILL.md` is the only required file.
 
 Supporting files should exist only when they materially improve execution or maintainability.
 
+### Category structure
+
+The [skills.sh](https://skills.sh/) CLI discovers skills up to 3 levels deep:
+- `skills/<category>/<skill>/SKILL.md` (most common)
+- `skills/<category>/<subcategory>/<skill>/SKILL.md` (when subcategorization helps)
+
+**Important:** Never place a `SKILL.md` file directly in a category folder — it will shadow deeper skills and break discovery.
+
+### Current categories
+
+- `session/` — Session management and continuity (handoffs, file tracking)
+- `git/` — Git and version control workflows (staging, commits)
+- `docs/` — Documentation generation and export (Markdown, PDF)
+
+When adding a new category, use a clear, descriptive name in lowercase kebab-case.
+
 Skills are installable via [skills.sh](https://skills.sh/):
 
 ```bash
 npx skills add wanderlima/agent-skills
-npx skills add wanderlima/agent-skills@skill-name
+npx skills add wanderlima/agent-skills --skill skill-name
 npx skills add . -l
 ```
+
+The CLI walks the `skills/` directory up to 3 levels deep to discover all skills, regardless of category organization.
 
 ---
 
@@ -315,7 +334,7 @@ No bundled binaries.
 | Safety | Constraints section |
 | Output | Concrete deliverables |
 
-Example: [`prepare-git-commit`](../skills/prepare-git-commit/SKILL.md)
+Example: [`prepare-git-commit`](../skills/git/prepare-git-commit/SKILL.md)
 
 Key characteristics:
 
@@ -336,7 +355,7 @@ Require binaries, scripts, or assets.
 | Process | File-specific flow |
 | Validation | Local e2e or smoke checks |
 
-Example: [`local-md-mermaid-pdf`](../skills/local-md-mermaid-pdf/SKILL.md)
+Example: [`local-md-mermaid-pdf`](../skills/docs/local-md-mermaid-pdf/SKILL.md)
 
 Key characteristics:
 
@@ -408,8 +427,9 @@ Every line should justify its cost.
 
 | Item | Convention | Example |
 | --- | --- | --- |
+| Category directory | `lowercase-hyphen-separated` | `session`, `git`, `docs`, `mobile-expo` |
 | Skill directory | `lowercase-hyphen-separated` | `prepare-git-commit` |
-| Skill file | `SKILL.md` | `skills/prepare-git-commit/SKILL.md` |
+| Skill file | `SKILL.md` | `skills/git/prepare-git-commit/SKILL.md` |
 | Supporting docs | `lowercase-hyphen-separated.md` | `reference.md` |
 | Sandbox dirs | Skill-prefixed | `local-md-mermaid-pdf-sandbox` |
 
@@ -444,8 +464,9 @@ Skills should compose.
 
 ### Required
 
-- [ ] `skills/<skill-name>/SKILL.md` exists
-- [ ] Frontmatter `name` matches directory name
+- [ ] Choose or create appropriate category under `skills/`
+- [ ] `skills/<category>/<skill-name>/SKILL.md` exists
+- [ ] Frontmatter `name` matches skill directory name (not category name)
 - [ ] Description explains what + when
 - [ ] Workflow steps are actionable
 - [ ] Outputs are explicit

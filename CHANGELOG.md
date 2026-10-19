@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-10-19
+
+### Changed
+
+- **Repository structure** — skills are now organized into categories (`session/`, `git/`, `docs/`) for better discovery and maintainability
+- Skill paths updated: `skills/<category>/<skill-name>/SKILL.md` (e.g., `skills/git/prepare-git-commit/SKILL.md`)
+- All skill `name` fields remain unchanged for backward compatibility with existing installations
+- `README.md` — skills table reorganized by category with per-skill install commands; repository structure section updated with category layout and conventions for adding new skills
+- `docs/skill-anatomy.md` — updated with category structure rules, discovery depth (up to 3 levels), current categories list, and new skill checklist updated to include category selection
+- `.gitignore` — added `**/.DS_Store` pattern
+- Install command syntax updated from `@skill-name` to `--skill skill-name` throughout documentation
+
+### Note
+
+This reorganization is fully compatible with [skills.sh](https://skills.sh/) CLI discovery (tested with `npx skills add . -l`). Future releases will add a `mobile-expo/` category for React Native and Expo workflows.
+
+## [0.4.0] - 2026-06-22 (Previously Unreleased)
+
 ### Added
 
 - `list-session-files` skill — tracks session file changes, appends absolute full system paths when the agent creates or modifies files, and lists full inventory on request (no git dependency)
@@ -14,7 +32,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - `prepare-git-commit` (v1.1.0) — when work is tied to a Trello/Jira/Linear/etc. card, require task ID in the commit title prefix (`{type}/{ID}: {title}`)
-- `README.md` — skill table, install example, and repository structure tree updated for `list-session-files`
 
 ## [0.4.0] - 2026-06-22
 
@@ -56,7 +73,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Repository layout compatible with [skills.sh](https://skills.sh/) (`skills/<name>/SKILL.md`)
 - E2E validation script for `local-md-mermaid-pdf`
 
-[Unreleased]: https://github.com/wanderlima/agent-skills/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/wanderlima/agent-skills/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/wanderlima/agent-skills/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/wanderlima/agent-skills/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/wanderlima/agent-skills/compare/v0.2.00...v0.3.0
 [0.2.00]: https://github.com/wanderlima/agent-skills/compare/v0.1.0...v0.2.00
